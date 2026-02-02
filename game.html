@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>My First JavaScript</h1>
+
+<button style="font-size: 18px; width: 50px; height: 50px; padding: 5px; border-radius: 24px; color: purple;" type="button" onclick="decreaseSpeed()">-</button>
+<button style="font-size: 18px; width: 150px; height: 50px; padding: 5px; border-radius: 24px; color: purple;" type="button" onclick="startMove()">Start</button>
+<button style="font-size: 18px; width: 50px; height: 50px; padding: 5px; border-radius: 24px; color: purple;" type="button" onclick="increaseSpeed()">+</button>
+
+<br><br>
+
+<div id ="container" style="border-style: solid; border-color: solid black; width:500px; height:500px;">
+    <div id="myDiv" style="width:100px;height:100px;background-color:lightpink;"></div>
+</div>
+
+<script>
+    let speed = 500; // initial speed in milliseconds
+    let moveInterval;
+
+    function startMove(){
+        if(moveInterval){
+            clearInterval(moveInterval);
+        }
+        moveInterval = setInterval(moveDiv, speed);
+    }
+    function decreaseSpeed(){
+        if(speed < 1000){
+            speed += 100;
+            if(moveInterval){
+                clearInterval(moveInterval);
+                moveInterval = setInterval(moveDiv, speed);
+            }
+        }
+    }
+    function increaseSpeed(){
+        if(speed > 100){
+            speed -= 100;
+            if(moveInterval){
+                clearInterval(moveInterval);
+                moveInterval = setInterval(moveDiv, speed);
+            }
+        }
+    }
+    // make the div move randomly whenever button is clicked
+    function moveDiv(){
+        var div = document.getElementById("myDiv");
+        var container = document.getElementById("container");
+
+        var containerWidth = container.clientWidth - div.clientWidth;
+        var containerHeight = container.clientHeight - div.clientHeight;
+        
+        var randomX = Math.floor(Math.random() * containerWidth);
+        var randomY = Math.floor(Math.random() * containerHeight);
+        
+        div.style.position = "relative";
+        div.style.left = randomX + "px";
+        div.style.top = randomY + "px";
+
+    }
+</script>
+
+</body>
+</html> 
